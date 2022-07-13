@@ -2,6 +2,7 @@ package com.example.walkthroughjava.service;
 
 import com.example.walkthroughjava.domain.Pessoa;
 import com.example.walkthroughjava.repository.PessoaRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,5 +35,10 @@ public class PessoaServiceImpl implements PessoaService {
     @Override
     public void delete(Long id) {
         this.pessoaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Pessoa> findAll() {
+        return this.pessoaRepository.findAll(Sort.by(Sort.Order.asc("nome"), Sort.Order.asc("sobrenome")));
     }
 }
