@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/api/pessoa")
 public class PessoaController {
     private PessoaService pessoaService;
 
@@ -24,6 +24,12 @@ public class PessoaController {
     @GetMapping
     public ResponseEntity<List<Pessoa>> findAll() {
         return ResponseEntity.ok(pessoaService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<Pessoa> saveOrUpdate(@RequestBody Pessoa pessoa) {
+        this.pessoaService.saveOrUpdate(pessoa);
+        return ResponseEntity.ok(pessoa);
     }
 
     @DeleteMapping("/{id}")
