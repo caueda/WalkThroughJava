@@ -21,5 +21,6 @@ public class Pessoa {
     private String sobrenome;
     @Column(name="data_nascimento")
     private LocalDate dataNascimento;
+    @Column(name="CPF", unique = true)
     private String cpf;
 }

@@ -41,4 +41,9 @@ public class PessoaServiceImpl implements PessoaService {
     public List<Pessoa> findAll() {
         return this.pessoaRepository.findAll(Sort.by(Sort.Order.asc("nome"), Sort.Order.asc("sobrenome")));
     }
+
+    @Override
+    public Optional<Pessoa> findByCpf(String cpf) {
+        return this.pessoaRepository.findByCpf(cpf);
+    }
 }

@@ -16,4 +16,6 @@ public interface PessoaService {
 
     List<Pessoa> findAll();
 
+    Optional<Pessoa> findByCpf(String cpf);
+
 }
