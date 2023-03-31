@@ -1,0 +1,1 @@
+insert into pessoa(id, nome, sobrenome,data_nascimento, cpf) values(0, 'Charles','Xavier','1920-01-01','999.999.999-99');

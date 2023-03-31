@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>IT-Handson - Server side</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link href="http://localhost:4300/styles.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">IT-HANDSON</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/produto}">Produto</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<micro-app-produto></micro-app-produto>
+
+<script src="http://localhost:4300/polyfills.js"></script>
+<script src="http://localhost:4300/scripts.js"></script>
+<script src="http://localhost:4300/runtime.js"></script>
+<script src="http://localhost:4300/vendor.js"></script>
+<script src="http://localhost:4300/main.js"></script>
+</body>
+</html>
