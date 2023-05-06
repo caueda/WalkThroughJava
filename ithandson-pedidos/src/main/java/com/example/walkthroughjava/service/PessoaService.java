@@ -1,6 +1,8 @@
 package com.example.walkthroughjava.service;
 
 import com.example.walkthroughjava.domain.Pessoa;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,8 +16,12 @@ public interface PessoaService {
 
     void delete(Long id);
 
-    List<Pessoa> findAll();
+    List<Pessoa> findAll(Pageable paging);
+
+    Page<Pessoa> findAllPageable(Pageable pageable);
 
     Optional<Pessoa> findByCpf(String cpf);
+
+    Long count();
 
 }

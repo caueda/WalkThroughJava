@@ -3,9 +3,8 @@ package com.example.walkthroughjava.service;
 import com.example.walkthroughjava.domain.Pessoa;
 import com.example.walkthroughjava.exception.SistemaException;
 import com.example.walkthroughjava.repository.PessoaRepository;
-import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -52,15 +51,25 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public List<Pessoa> findAll() {
-        List<Pessoa> listaPessoas = new ArrayList<>();
-        Iterable<Pessoa> all = this.pessoaRepository.findAll(Sort.by(Sort.Order.asc("nome"), Sort.Order.asc("sobrenome")));
-        all.forEach(listaPessoas::add);
-        return listaPessoas;
+    public List<Pessoa> findAll(Pageable paging) {
+        Page<Pessoa> page = this.pessoaRepository.findAll(paging);
+        List<Pessoa> pessoas = new ArrayList<>();
+        page.forEach(pessoas::add);
+        return pessoas;
+    }
+
+    @Override
+    public Page<Pessoa> findAllPageable(Pageable paging) {
+        return this.pessoaRepository.findAll(paging);
     }
 
     @Override
     public Optional<Pessoa> findByCpf(String cpf) {
         return this.pessoaRepository.findByCpf(cpf);
+    }
+
+    @Override
+    public Long count() {
+        return this.pessoaRepository.count();
     }
 }

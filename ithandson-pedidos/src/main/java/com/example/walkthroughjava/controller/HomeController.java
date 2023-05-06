@@ -6,6 +6,7 @@ import com.example.walkthroughjava.service.PessoaService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,15 +39,16 @@ public class HomeController {
         ResponseEntity<String> response = restTemplate.getForEntity(CHUCK_NORRIS_JOKE_API, String.class);
         var value = new String(response.getBody().getBytes());
         log.info(value);
+        var pessoas = pessoaService.findAll(Pageable.ofSize(10));
         model.addAttribute("mensagem", value);
-        model.addAttribute("pessoas", pessoaService.findAll());
+        model.addAttribute("pessoas", pessoas);
         model.addAttribute("pessoa", new Pessoa());
         return "home";
     }
 
     @PostMapping
     public String cadastrar(@Valid Pessoa pessoa, Errors errors) {
-        log.info("Pessoa sendo cadastrada: ", pessoa);
+        log.info("Pessoa sendo cadastrada: {}", pessoa);
         try {
             this.pessoaService.saveOrUpdate(pessoa);
         } catch (SistemaException e) {
