@@ -12,6 +12,8 @@ public interface PessoaService {
 
     List<Pessoa> findByName(String name);
 
+    Page<Pessoa> findByExample(Pessoa pessoa, Pageable pageable);
+
     Pessoa saveOrUpdate(Pessoa pessoa);
 
     void delete(Long id);
@@ -22,6 +24,6 @@ public interface PessoaService {
 
     Optional<Pessoa> findByCpf(String cpf);
 
-    Long count();
+    Long count(Pessoa pessoa);
 
 }

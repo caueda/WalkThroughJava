@@ -3,6 +3,8 @@ package com.example.walkthroughjava.service;
 import com.example.walkthroughjava.domain.Pessoa;
 import com.example.walkthroughjava.exception.SistemaException;
 import com.example.walkthroughjava.repository.PessoaRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -69,7 +71,22 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Long count() {
-        return this.pessoaRepository.count();
+    public Long count(Pessoa pessoa) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreNullValues()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        return this.pessoaRepository.count(Example.of(pessoa, matcher));
+    }
+
+    @Override
+    public Page<Pessoa> findByExample(Pessoa pessoa, Pageable pageable) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreNullValues()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        return this.pessoaRepository.findAll(Example.of(pessoa, matcher), pageable);
     }
 }

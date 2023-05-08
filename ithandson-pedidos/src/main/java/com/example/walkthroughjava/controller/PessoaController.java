@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/pessoa")
 public class PessoaController {
-    private PessoaService pessoaService;
+    private final PessoaService pessoaService;
 
     public PessoaController(PessoaService pessoaService) {
         this.pessoaService = pessoaService;
@@ -29,9 +29,17 @@ public class PessoaController {
         return ResponseEntity.ok(pessoaService.findAllPageable(paging));
     }
 
-    @GetMapping("/total")
-    public ResponseEntity<Long> count() {
-        return ResponseEntity.ok(pessoaService.count());
+    @PostMapping("/example")
+    public ResponseEntity<Page<Pessoa>> findAllPageableByExample(@RequestParam(value = "page", defaultValue = "0") int page,
+                                                        @RequestParam(value = "size", defaultValue = "10") int size,
+                                                        @RequestBody Pessoa pessoa) {
+        Pageable paging = PageRequest.of(page, size);
+        return ResponseEntity.ok(pessoaService.findByExample(pessoa, paging));
+    }
+
+    @PostMapping("/total")
+    public ResponseEntity<Long> count(@RequestBody Pessoa pessoa) {
+        return ResponseEntity.ok(pessoaService.count(pessoa));
     }
 
     @PostMapping
