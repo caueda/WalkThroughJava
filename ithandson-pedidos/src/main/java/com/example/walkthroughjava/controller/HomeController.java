@@ -50,7 +50,7 @@ public class HomeController {
     public String cadastrar(@Valid Pessoa pessoa, Errors errors) {
         log.info("Pessoa sendo cadastrada: {}", pessoa);
         try {
-            this.pessoaService.saveOrUpdate(pessoa);
+            this.pessoaService.save(pessoa);
         } catch (SistemaException e) {
             errors.rejectValue(e.getCampo(), e.getCampo(), e.getMessage());
         }

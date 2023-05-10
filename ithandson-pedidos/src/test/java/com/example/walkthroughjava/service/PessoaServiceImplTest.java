@@ -3,12 +3,10 @@ package com.example.walkthroughjava.service;
 import com.example.walkthroughjava.domain.Pessoa;
 import com.example.walkthroughjava.exception.SistemaException;
 import com.example.walkthroughjava.repository.PessoaRepository;
-import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 
@@ -23,7 +21,6 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -62,7 +59,7 @@ class PessoaServiceImplTest {
                 .build();
         when(pessoaRepository.findByCpf(anyString())).thenReturn(Optional.of(pessoa));
         Exception exception = assertThrows(SistemaException.class, () -> {
-            this.pessoaService.saveOrUpdate(pessoa);
+            this.pessoaService.save(pessoa);
         });
         String expectedMessage = "O CPF informado já existe.";
         assertThat(expectedMessage, equalTo(exception.getMessage()));
@@ -78,7 +75,7 @@ class PessoaServiceImplTest {
                 .build();
         when(pessoaRepository.findByCpf(anyString())).thenReturn(Optional.empty());
         Exception exception = assertThrows(SistemaException.class, () -> {
-            this.pessoaService.saveOrUpdate(pessoa);
+            this.pessoaService.save(pessoa);
         });
         String expectedMessage = "A data de nascimento é obrigatória.";
         assertThat(expectedMessage, equalTo(exception.getMessage()));
@@ -95,7 +92,7 @@ class PessoaServiceImplTest {
                 .build();
         when(pessoaRepository.findByCpf(anyString())).thenReturn(Optional.empty());
         Exception exception = assertThrows(SistemaException.class, () -> {
-            this.pessoaService.saveOrUpdate(pessoa);
+            this.pessoaService.save(pessoa);
         });
         String expectedMessage = "A data de nascimento não pode ser uma data futura.";
         assertThat(expectedMessage, equalTo(exception.getMessage()));

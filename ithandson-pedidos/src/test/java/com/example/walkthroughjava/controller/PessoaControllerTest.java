@@ -1,23 +1,17 @@
 package com.example.walkthroughjava.controller;
 
-import com.example.walkthroughjava.config.Config;
 import com.example.walkthroughjava.config.ConfigTest;
 import com.example.walkthroughjava.domain.Pessoa;
 import com.example.walkthroughjava.exception.SistemaException;
 import com.example.walkthroughjava.service.PessoaService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -110,7 +104,7 @@ public class PessoaControllerTest {
                 .cpf("111.111.111-11")
                 .dataNascimento(LocalDate.of(1982, 1, 1))
                 .build();
-        when(pessoaService.saveOrUpdate(any(Pessoa.class))).thenThrow(new SistemaException("cpf", "O CPF informado já existe."));
+        when(pessoaService.save(any(Pessoa.class))).thenThrow(new SistemaException("cpf", "O CPF informado já existe."));
         var result = mockMvc.perform(post("/api/pessoa")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(pessoa)))

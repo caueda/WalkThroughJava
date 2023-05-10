@@ -14,7 +14,9 @@ public interface PessoaService {
 
     Page<Pessoa> findByExample(Pessoa pessoa, Pageable pageable);
 
-    Pessoa saveOrUpdate(Pessoa pessoa);
+    Pessoa save(Pessoa pessoa);
+
+    Pessoa update(Pessoa pessoa);
 
     void delete(Long id);
 

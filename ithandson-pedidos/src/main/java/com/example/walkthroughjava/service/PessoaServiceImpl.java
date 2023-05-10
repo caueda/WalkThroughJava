@@ -35,10 +35,20 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Pessoa saveOrUpdate(Pessoa pessoa) {
+    public Pessoa save(Pessoa pessoa) {
         if(this.findByCpf(pessoa.getCpf()).isPresent()) {
             throw new SistemaException("cpf","O CPF informado já existe.");
         }
+        if(Objects.isNull(pessoa.getDataNascimento())) {
+            throw new SistemaException("dataNascimento", "A data de nascimento é obrigatória.");
+        } else if(pessoa.getDataNascimento().isAfter(LocalDate.now())) {
+            throw new SistemaException("dataNascimento", "A data de nascimento não pode ser uma data futura.");
+        }
+        return this.pessoaRepository.save(pessoa);
+    }
+
+    @Override
+    public Pessoa update(Pessoa pessoa) {
         if(Objects.isNull(pessoa.getDataNascimento())) {
             throw new SistemaException("dataNascimento", "A data de nascimento é obrigatória.");
         } else if(pessoa.getDataNascimento().isAfter(LocalDate.now())) {
