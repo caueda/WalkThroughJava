@@ -2,7 +2,6 @@ package com.example.walkthroughjava.controller;
 
 import com.example.walkthroughjava.domain.ExceptionResponse;
 import com.example.walkthroughjava.exception.SistemaException;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -29,7 +28,6 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
                 ExceptionResponse.builder()
                         .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                         .message(ex.getMessage())
-                        .field(((SistemaException) ex).campo)
                         .build();
         return new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
