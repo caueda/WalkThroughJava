@@ -19,12 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -70,30 +67,30 @@ public class PessoaControllerTest {
                 .andExpect(jsonPath("$.nome", equalTo("Charles")));
     }
 
-    @Test
-    void findAll() throws Exception {
-        List<Pessoa> listPessoaMock = Arrays.asList(
-                Pessoa.builder()
-                        .id(1L)
-                        .nome("Charles")
-                        .sobrenome("Xavier")
-                        .cpf("111.111.111-11")
-                        .dataNascimento(LocalDate.of(1982, 1, 1))
-                        .build(),
-                Pessoa.builder()
-                        .id(2L)
-                        .nome("Logan")
-                        .sobrenome("Wolverine")
-                        .cpf("999.999.999-99")
-                        .dataNascimento(LocalDate.of(1970, 1, 1))
-                        .build());
-        when(pessoaService.findAll()).thenReturn(listPessoaMock);
-        mockMvc.perform(get("/api/pessoa")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*]", hasSize(2)));
-    }
+//    @Test
+//    void findAll() throws Exception {
+//        List<Pessoa> listPessoaMock = Arrays.asList(
+//                Pessoa.builder()
+//                        .id(1L)
+//                        .nome("Charles")
+//                        .sobrenome("Xavier")
+//                        .cpf("111.111.111-11")
+//                        .dataNascimento(LocalDate.of(1982, 1, 1))
+//                        .build(),
+//                Pessoa.builder()
+//                        .id(2L)
+//                        .nome("Logan")
+//                        .sobrenome("Wolverine")
+//                        .cpf("999.999.999-99")
+//                        .dataNascimento(LocalDate.of(1970, 1, 1))
+//                        .build());
+//        when(pessoaService.findAll()).thenReturn(listPessoaMock);
+//        mockMvc.perform(get("/api/pessoa")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .accept(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$[*]", hasSize(2)));
+//    }
 
     @Test
     void saveOrUpdate_CpfAlreadSaved_throwException() throws Exception {

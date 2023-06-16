@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 public class PessoaServiceImpl implements PessoaService {
 
-    private PessoaRepository pessoaRepository;
+    private final PessoaRepository pessoaRepository;
 
     public PessoaServiceImpl(PessoaRepository pessoaRepository) {
         this.pessoaRepository = pessoaRepository;

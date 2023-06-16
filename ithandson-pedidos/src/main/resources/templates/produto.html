@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>IT-Handson - Server side</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
-    <link href="http://localhost:4300/styles.css" rel="stylesheet">
+    <link th:href="${styles}" rel="stylesheet">
 </head>
 
 <body>
@@ -27,13 +27,13 @@
         </ul>
     </div>
 </nav>
-
-<micro-app-produto></micro-app-produto>
-
-<script src="http://localhost:4300/polyfills.js"></script>
-<script src="http://localhost:4300/scripts.js"></script>
-<script src="http://localhost:4300/runtime.js"></script>
-<script src="http://localhost:4300/vendor.js"></script>
-<script src="http://localhost:4300/main.js"></script>
+<div style="margin-top:1.2em;">
+    <micro-app-produto></micro-app-produto>
+</div>
+<script th:src="${polyfills}"></script>
+<script th:src="${scripts}"></script>
+<script th:src="${rutnime}"></script>
+<script th:src="${vendor}"></script>
+<script th:src="${main}"></script>
 </body>
 </html>

@@ -1,32 +1,36 @@
 package com.example.walkthroughjava.controller;
 
-import com.example.walkthroughjava.domain.Pessoa;
-import com.example.walkthroughjava.exception.SistemaException;
-import com.example.walkthroughjava.service.PessoaService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.RestTemplate;
-
-import javax.validation.Valid;
 
 @Controller
 @Slf4j
 @RequestMapping("/produto")
 public class ProdutoPageController {
 
+    @Value("${microAppProdutoHost}")
+    private String microAppProdutoHost;
+
     public ProdutoPageController() {
     }
 
     @GetMapping
     public String home(Model model)  {
+        model.addAttribute("styles", microAppProdutoHost + "/styles.css");
+        model.addAttribute("polyfills", microAppProdutoHost + "/polyfills.js");
+        model.addAttribute("scripts", microAppProdutoHost + "/scripts.js");
+        model.addAttribute("runtime", microAppProdutoHost + "/runtime.js");
+        model.addAttribute("vendor", microAppProdutoHost + "/vendor.js");
+        model.addAttribute("main", microAppProdutoHost + "/main.js");
         return "produto";
+    }
+
+    @GetMapping({"cadastrar", "consultar"})
+    public String handleMicroAppCadastrarRouting(Model model) {
+        return "redirect:/produto";
     }
 }

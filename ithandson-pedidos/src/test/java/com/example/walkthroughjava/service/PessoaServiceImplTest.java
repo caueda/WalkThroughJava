@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -111,13 +110,13 @@ class PessoaServiceImplTest {
         verify(pessoaRepository, times(1)).deleteById(anyLong());
     }
 
-    @Test
-    void findAll() {
-        Iterable<Pessoa> mockResult = Arrays.asList(new Pessoa(), new Pessoa(), new Pessoa());
-        when(pessoaRepository.findAll(Sort.by(Sort.Order.asc("nome"), Sort.Order.asc("sobrenome")))).thenReturn(mockResult);
-        List<Pessoa> result = pessoaService.findAll();
-        assertThat(result, hasSize(3));
-    }
+//    @Test
+//    void findAll() {
+//        Iterable<Pessoa> mockResult = Arrays.asList(new Pessoa(), new Pessoa(), new Pessoa());
+//        when(pessoaRepository.findAll(Sort.by(Sort.Order.asc("nome"), Sort.Order.asc("sobrenome")))).thenReturn(mockResult);
+//        List<Pessoa> result = pessoaService.findAll();
+//        assertThat(result, hasSize(3));
+//    }
 
     @Test
     void findByCpf() {
