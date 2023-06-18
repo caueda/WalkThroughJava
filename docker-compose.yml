@@ -12,7 +12,8 @@ services:
       MYSQL_PASSWORD: welcome1 # replace with your password
     volumes:
       - mysql_data:/var/lib/mysql
-
+    ports:
+      - "3306:3306"
   db_mongo:
     image: mongo:latest
     restart: always
@@ -21,6 +22,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: welcome1 # replace with your root password
     volumes:
       - mongo_data:/data/db
+    ports:
+        - "27017:27017"
 
   artemis:
     image: vromero/activemq-artemis:latest
