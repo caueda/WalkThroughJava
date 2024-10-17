@@ -3,6 +3,7 @@ package com.example.ithandsonoferta.service;
 import com.example.ithandsonoferta.domain.mongodb.Oferta;
 import com.example.ithandsonoferta.enumerators.Situacao;
 import com.example.ithandsonoferta.repository.OfertaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.vavr.API;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -86,5 +89,18 @@ class OfertaServiceImplTest {
     void findByProdutoIdAndSituacaoAtivo() {
         this.ofertaService.findByProdutoIdAndSituacaoAtivo("key1");
         verify(ofertaRepository).findByProdutoIdAndSituacao(anyString(), eq(Situacao.ATIVO));
+    }
+
+    @Test
+    public void testMap() throws IOException {
+        Map<String, Object> map = new ObjectMapper().readValue("{\"skip\": \"true\"}", Map.class);
+
+        if(map.getOrDefault("required", "false").equals("true")) {
+            System.out.println("Required");
+        } else {
+            System.out.println("Not required");
+        }
+
+        System.out.println(map.get("skip"));
     }
 }

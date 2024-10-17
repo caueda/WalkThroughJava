@@ -1,6 +1,11 @@
 package com.example.walkthroughjava.config;
 
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
@@ -13,9 +18,16 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
+@Slf4j
+@Getter @Setter
+@ConfigurationProperties
 public class Config implements WebMvcConfigurer {
+    private String datafilepath;
+    @Value("Hello there")
+    private String configMessage;
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        log.warn("datafilepath: {}", datafilepath);
         registry.addMapping("/**")
                 .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "DELETE", "PUT")
                 .allowedOrigins("*")
